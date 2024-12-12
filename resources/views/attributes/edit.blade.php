@@ -176,7 +176,6 @@
                 </div>
                 <div class="content-backdrop fade"></div>
             </div>
-            <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
     </div>

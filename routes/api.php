@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AtmosController;
+use App\Http\Controllers\RequestController;
 
-Route::post('/atmos-token', [AtmosController::class, 'getToken']);
-Route::get('/', [AtmosController::class, 'test'])->name('test');
+Route::post('/footerform', [RequestController::class, 'sendRequestToTelegram']);
+Route::post('/contactform', [RequestController::class, 'callRequestToTelegram']);
+Route::post('/modalform', [RequestController::class, 'contactRequestToTelegram']);
