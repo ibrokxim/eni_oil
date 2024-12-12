@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AtmosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AttributesController;
@@ -42,4 +41,3 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-Route::get('/', [AtmosController::class, 'test'])->name('test');

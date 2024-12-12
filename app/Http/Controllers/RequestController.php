@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class RequestController extends Controller
 {
+
     public function sendRequestToTelegram(Request $request)
     {
         $request->validate([
@@ -40,22 +41,28 @@ class RequestController extends Controller
 
     public function callRequestToTelegram(Request $request)
     {
+        //
+        //phoneNumber
+        //email
         $request->validate([
-            'name' => 'required',
+            'companyName' => 'required',
+            'postalAddress' => 'required',
+            'phoneNumber' => 'required',
             'email' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
+
         ]);
 
-        $name = $request->input('name');
+        $companyName = $request->input('companyName');
+        $postalAddress = $request->input('postalAddress');
+        $phoneNumber = $request->input('phoneNumber');
         $email = $request->input('email');
-        $phone = $request->input('phone');
-        $address = $request->input('address');
+
+
 
         $token = env('TELEGRAM_BOT_TOKEN');
         $chat_id = env('TELEGRAM_CHAT_ID');
 
-        $message = "Заказать звонок:\nНазвание компании: $name\nEmail: $email\nНомер телефона: $phone\nЮредичесмкий адрес: $address";
+        $message = "Заказать звонок:\nНазвание компании: $companyName\nЮредичесмкий адрес: $postalAddress\nНомер телефона: $phoneNumber\nEmail: $email";
 
         $response = Http::get("https://api.telegram.org/bot$token/sendMessage", [
             'chat_id' => $chat_id,
@@ -74,6 +81,7 @@ class RequestController extends Controller
 
     public function contactRequestToTelegram(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
