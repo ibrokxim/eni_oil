@@ -121,7 +121,7 @@
                         <div data-i18n="Tables">Товары</div>
                     </a>
                 </li>
-                <li class="menu-item ">
+                <li class="menu-item">
                     <a href="{{ route('categories.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Категории</div>
@@ -133,13 +133,13 @@
                         <div data-i18n="Tables">Аттрибуты</div>
                     </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{ route('specifications.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Спецификации</div>
                     </a>
                 </li>
-                <li class="menu-item ">
+                <li class="menu-item active">
                     <a href="{{ route('seo.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">SEO</div>
@@ -147,33 +147,80 @@
                 </li>
             </ul>
         </aside>
-        <!-- / Menu -->
-        <!-- Layout container -->
         <div class="layout-page">
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4">Спецификации </h4>
+                    <h4 class="fw-bold py-3 mb-4">SEO Management</h4>
                     <!-- Custom file input -->
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <h5 class="card-header">Добавить спецификацию</h5>
-                                <form action="{{ route('specifications.store') }}" method="post">
+                                <h5 class="card-header">Edit SEO Data</h5>
+                                <form action="{{ route('seo.update', $seo->id) }}" method="post">
                                     @csrf
+                                    @method('PUT')
                                     <div class="card-body demo-vertical-spacing demo-only-element">
-                                    <label for="defaultFormControlInput" class="form-label">Название</label>
-                                    <input type="text" class="form-control" name="name" id="defaultFormControlInput" placeholder="Введите название" aria-describedby="defaultFormControlHelp"/>
+                                        <label for="slug" class="form-label">Slug</label>
+                                        <input type="text" class="form-control" name="slug" id="slug"
+                                               value="{{ $seo->slug }}"
+                                               placeholder="Enter slug"
+                                               aria-describedby="slugHelp"
+                                               required
+                                        />
 
-                                    <label for="defaultFormControlInput" class="form-label">Код</label>
-                                    <input type="text" class="form-control" name="code" id="defaultFormControlInput" placeholder="Введите код спецификации" aria-describedby="defaultFormControlHelp"/>
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title" id="title"
+                                               value="{{ $seo->title }}"
+                                               placeholder="Enter title"
+                                               aria-describedby="titleHelp"
+                                        />
 
-                                    <label for="defaultFormControlInput" class="form-label">Значение</label>
-                                    <input type="text" class="form-control" name="value" id="defaultFormControlInput" placeholder="Введите значение" aria-describedby="defaultFormControlHelp"/>
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" name="description" id="description"
+                                                  placeholder="Enter description"
+                                                  aria-describedby="descriptionHelp">{{ $seo->description }}</textarea>
 
-                                    <button type="submit" class="btn btn-success">Добавить</button>
-                                </div>
+                                        <label for="keywords" class="form-label">Keywords</label>
+                                        <input type="text" class="form-control" name="keywords" id="keywords"
+                                               value="{{ $seo->keywords }}"
+                                               placeholder="Enter keywords"
+                                               aria-describedby="keywordsHelp"
+                                        />
+
+                                        <label for="position" class="form-label">Position</label>
+                                        <select class="form-select" name="position" id="position" required>
+                                            <option value="header" {{ $seo->position == 'header' ? 'selected' : '' }}>Header</option>
+                                            <option value="footer" {{ $seo->position == 'footer' ? 'selected' : '' }}>Footer</option>
+                                        </select>
+
+                                        <label for="type" class="form-label">Type</label>
+                                        <select class="form-select" name="type" id="type" required>
+                                            <option value="global" {{ $seo->type == 'global' ? 'selected' : '' }}>Global</option>
+                                            <option value="product" {{ $seo->type == 'product' ? 'selected' : '' }}>Product</option>
+                                            <option value="category" {{ $seo->type == 'category' ? 'selected' : '' }}>Category</option>
+                                        </select>
+
+                                        <label for="type_id" class="form-label">Type ID (optional)</label>
+                                        <input type="number" class="form-control" name="type_id" id="type_id"
+                                               value="{{ $seo->type_id }}"
+                                               placeholder="Enter type ID"
+                                               aria-describedby="typeIdHelp"
+                                        />
+
+                                        <button type="submit" class="btn btn-success mt-3">Update</button>
+
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger mt-3">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -189,9 +236,6 @@
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-<!-- / Layout wrapper -->
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
 <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
 <script src="{{ asset('assets/vendor/js/bootstrap.js')}}"></script>

@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\SeoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
@@ -38,6 +40,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [SpecificationController::class, 'edit'])->name('specifications.edit');
         Route::put('/update/{id}', [SpecificationController::class, 'update'])->name('specifications.update');
         Route::delete('/delete/{id}', [SpecificationController::class, 'destroy'])->name('specifications.delete');
+    });
+    Route::prefix('seo')->group(function () {
+        Route::get('/', [SeoController::class, 'index'])->name('seo.index');
+        Route::get('/create', [SeoController::class, 'create'])->name('seo.create');
+        Route::post('/store', [SeoController::class, 'store'])->name('seo.store');
+        Route::get('/edit/{id}', [SeoController::class, 'edit'])->name('seo.edit');
+        Route::put('/update/{id}', [SeoController::class, 'update'])->name('seo.update');
+        Route::delete('/delete/{id}', [SeoController::class, 'destroy'])->name('seo.delete');
     });
 });
 

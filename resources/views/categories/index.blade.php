@@ -143,6 +143,12 @@
                         <div data-i18n="Tables">Спецификации</div>
                     </a>
                 </li>
+                <li class="menu-item">
+                    <a href="{{ route('seo.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-table"></i>
+                        <div data-i18n="Tables">SEO</div>
+                    </a>
+                </li>
             </ul>
         </aside>
         <div class="layout-page">
