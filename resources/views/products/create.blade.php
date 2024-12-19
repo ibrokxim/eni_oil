@@ -193,6 +193,9 @@
                                             <div class="col">
                                                 <input type="text" class="form-control" name="specifications[0][value]" placeholder="Значение">
                                             </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" name="specifications[0][code]" placeholder="Код">
+                                            </div>
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-secondary mb-3" onclick="addSpecification()">Добавить спецификацию</button>
