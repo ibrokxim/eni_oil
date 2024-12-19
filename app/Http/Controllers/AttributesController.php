@@ -28,8 +28,7 @@ class AttributesController extends Controller
             'code' => 'nullable|string|max:255',
             'value' => 'required|string|max:255',
         ]);
-
-
+        
         $attributes = Attributes::create([
             'name' => $validatedData['name'],
             'code' => $validatedData['code'],

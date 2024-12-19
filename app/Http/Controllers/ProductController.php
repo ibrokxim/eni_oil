@@ -35,18 +35,51 @@ class ProductController extends Controller
             'eco_friendly' => 'nullable|string|max:255',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
+            'specifications' => 'nullable|array',
+            'specifications.*.name' => 'required_with:specifications|string|max:255',
+            'specifications.*.value' => 'required_with:specifications|string|max:255',
+            'attributes' => 'nullable|array',
+            'attributes.*.name' => 'required_with:attributes|string|max:255',
+            'attributes.*.value' => 'required_with:attributes|string|max:255',
+            'attributes.*.code' => 'required_with:attributes|string|max:255',
+            'images' => 'nullable|array',
+            'images.*' => 'image|max:2048',
         ]);
 
         $slug = Str::slug($validatedData['name']);
 
         $product = Product::create([
             'name' => $validatedData['name'],
-            'sku' => $validatedData['sku'],
+            'sku' => $validatedData['sku'] ?? null,
             'slug' => $slug,
-            'description' => $validatedData['description'],
+            'description' => $validatedData['description'] ?? null,
             'price' => $validatedData['price'],
             'category_id' => $validatedData['category_id'],
+            'application' => $validatedData['application'] ?? null,
+            'for_client' => $validatedData['for_client'] ?? null,
+            'eco_friendly' => $validatedData['eco_friendly'] ?? null,
         ]);
+
+        if (!empty($request->specifications)) {
+            foreach ($request->specifications as $specification) {
+                $spec = Specification::create($specification);
+                $product->specifications()->attach($spec->id);
+            }
+        }
+
+        if (!empty($request->attributes)) {
+            foreach ($request->attributes as $attribute) {
+                $attr = Attributes::create($attribute);
+                $product->attributes()->attach($attr->id);
+            }
+        }
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
+                $product->images()->create(['url' => $path]);
+            }
+        }
 
         return response()->json([
             'message' => 'Product created successfully',
@@ -56,25 +89,88 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::findOfFail($id);
-        return view('products.edit', compact('product'));
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        $specifications = Specification::all();
+        $attributes = Attributes::all();
+        return view('products.edit', compact('product', 'categories', 'specifications', 'attributes'));
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
 
-        request()->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'sku' => 'string|max:255',
+            'application' => 'nullable|string|max:255',
+            'for_client' => 'nullable|string|max:255',
+            'eco_friendly' => 'nullable|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'specifications' => 'nullable|array',
+            'specifications.*.name' => 'required_with:specifications|string|max:255',
+            'specifications.*.value' => 'required_with:specifications|string|max:255',
+            'attributes' => 'nullable|array',
+            'attributes.*.name' => 'required_with:attributes|string|max:255',
+            'attributes.*.value' => 'required_with:attributes|string|max:255',
+            'attributes.*.code' => 'required_with:attributes|string|max:255',
+            'images' => 'nullable|array',
+            'images.*' => 'image|max:2048',
         ]);
+
+        $slug = Str::slug($validatedData['name']);
+
+        $product->update([
+            'name' => $validatedData['name'],
+            'sku' => $validatedData['sku'] ?? null,
+            'slug' => $slug,
+            'description' => $validatedData['description'] ?? null,
+            'price' => $validatedData['price'],
+            'category_id' => $validatedData['category_id'],
+            'application' => $validatedData['application'] ?? null,
+            'for_client' => $validatedData['for_client'] ?? null,
+            'eco_friendly' => $validatedData['eco_friendly'] ?? null,
+        ]);
+
+        $product->specifications()->detach();
+        if (!empty($request->specifications)) {
+            foreach ($request->specifications as $specification) {
+                $spec = Specification::create($specification);
+                $product->specifications()->attach($spec->id);
+            }
+        }
+
+        $product->attributes()->detach();
+        if (!empty($request->attributes)) {
+            foreach ($request->attributes as $attribute) {
+                $attr = Attributes::create($attribute);
+                $product->attributes()->attach($attr->id);
+            }
+        }
+
+        if ($request->hasFile('images')) {
+            $product->images()->delete();
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
+                $product->images()->create(['url' => $path]);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Product updated successfully',
+            'product' => $product,
+        ], 200);
     }
+
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
         $product->delete();
-    }
 
+        return response()->json([
+            'message' => 'Product deleted successfully',
+        ], 200);
+    }
 }

@@ -19,7 +19,7 @@
 
     <meta name="description" content="" />
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico')}}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,19 +28,19 @@
         rel="stylesheet"
     />
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <!-- Page CSS -->
     <!-- Helpers -->
-    <script src="{{ asset('assets/vendor/js/helpers.js')}}"></script>
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('assets/js/config.js')}}"></script>
+    <script src="{{ asset('assets/js/config.js') }}"></script>
 </head>
 
 <body>
@@ -50,7 +50,7 @@
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <a href="index.html" class="app-brand-link">
+                <a href="{{ route('products.index') }}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                     width="25"
@@ -154,18 +154,20 @@
                         <div class="col-12">
                             <div class="card">
                                 <h5 class="card-header">Добавить товар</h5>
-                                <form class="card-body demo-vertical-spacing demo-only-element">
+                                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="card-body demo-vertical-spacing demo-only-element">
+                                    @csrf
+                                    <!-- Product Details -->
                                     <label for="defaultFormControlInput" class="form-label">Название</label>
                                     <input type="text" class="form-control" name="name" id="defaultFormControlInput" placeholder="Введите название товара" aria-describedby="defaultFormControlHelp"/>
 
                                     <label for="defaultFormControlInput" class="form-label">Код товара </label>
-                                    <input type="text" class="form-control" name="code" id="defaultFormControlInput" placeholder="Введите код товара" aria-describedby="defaultFormControlHelp"/>
+                                    <input type="text" class="form-control" name="sku" id="defaultFormControlInput" placeholder="Введите код товара" aria-describedby="defaultFormControlHelp"/>
 
                                     <label for="defaultFormControlInput" class="form-label">Применение</label>
-                                    <textarea style="height: 200px;"  class="form-control" name="application" id="defaultFormControlInput" placeholder="Введите текст" aria-describedby="defaultFormControlHelp"/></textarea>
+                                    <textarea style="height: 200px;" class="form-control" name="application" id="defaultFormControlInput" placeholder="Введите текст" aria-describedby="defaultFormControlHelp"></textarea>
 
                                     <label for="defaultFormControlInput" class="form-label">Преимущества для клиентов</label>
-                                    <textarea style="height: 200px;"  class="form-control" name="for_clients" id="defaultFormControlInput" placeholder="Введите текст" aria-describedby="defaultFormControlHelp"/></textarea>
+                                    <textarea style="height: 200px;" class="form-control" name="for_client" id="defaultFormControlInput" placeholder="Введите текст" aria-describedby="defaultFormControlHelp"></textarea>
 
                                     <label for="defaultFormControlInput" class="form-label">Предупреждения</label>
                                     <input type="text" class="form-control" name="warnings" id="defaultFormControlInput" placeholder="Введите текст" aria-describedby="defaultFormControlHelp"/>
@@ -174,31 +176,50 @@
                                     <input type="text" class="form-control" name="eco_friendly" id="defaultFormControlInput" placeholder="Введите текст" aria-describedby="defaultFormControlHelp"/>
 
                                     <label for="defaultFormControlInput" class="form-label">Выберите категорию</label>
-                                    <select id="recipient_select" class="form-control">
+                                    <select class="form-control" name="category_id" id="category_id">
                                         <option value="">Выберите категорию</option>
                                         @foreach($categories as $category)
-                                            <option value="" name="category_id" >{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
 
-                                    <label for="defaultFormControlInput" class="form-label">Выберите cпецификацию</label>
-                                    <select id="recipient_select" class="form-control">
-                                        <option value="">Выберите спецификацию</option>
-                                        @foreach($specifications as $specification)
-                                            <option value="" name="category_id" >{{ $specification->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <!-- Specifications -->
+                                    <label for="specifications" class="form-label">Спецификации</label>
+                                    <div id="specifications">
+                                        <div class="form-row mb-3">
+                                            <div class="col">
+                                                <input type="text" class="form-control" name="specifications[0][name]" placeholder="Название">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" name="specifications[0][value]" placeholder="Значение">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary mb-3" onclick="addSpecification()">Добавить спецификацию</button>
 
-                                    <label for="defaultFormControlInput" class="form-label">Выберите атрибут</label>
-                                    <select id="recipient_select" class="form-control">
-                                        <option value="">Выберите атрибут</option>
-                                        @foreach($attributes as $attribute)
-                                            <option value="" name="category_id" >{{ $attribute->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <!-- Attributes -->
+                                    <label for="attributes" class="form-label">Атрибуты</label>
+                                    <div id="attributes">
+                                        <div class="form-row mb-3">
+                                            <div class="col">
+                                                <input type="text" class="form-control" name="attributes[0][name]" placeholder="Название">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" name="attributes[0][value]" placeholder="Значение">
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" name="attributes[0][code]" placeholder="Код">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary mb-3" onclick="addAttribute()">Добавить атрибут</button>
 
-                                    <button type="button" class="btn btn-success">Добавить</button>
-                                </div>
+                                    <!-- Images -->
+                                    <label for="images" class="form-label">Изображения</label>
+                                    <input type="file" class="form-control" id="images" name="images[]" multiple/>
+
+                                    <button type="submit" class="btn btn-success mt-3">Добавить</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -216,14 +237,53 @@
 <!-- / Layout wrapper -->
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
-<script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
-<script src="{{ asset('assets/vendor/js/bootstrap.js')}}"></script>
-<script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-<script src="{{ asset('assets/vendor/js/menu.js')}}"></script>
+<script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
+<script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+<script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
 
-<script src="{{ asset('assets/js/main.js')}}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<script>
+    let specIndex = 1;
+    function addSpecification() {
+        const specifications = document.getElementById('specifications');
+        const newSpec = document.createElement('div');
+        newSpec.className = 'form-row mb-3';
+        newSpec.innerHTML = `
+        <div class="col">
+            <input type="text" class="form-control" name="specifications[${specIndex}][name]" placeholder="Название">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" name="specifications[${specIndex}][value]" placeholder="Значение">
+        </div>
+    `;
+        specifications.appendChild(newSpec);
+        specIndex++;
+    }
+
+    let attrIndex = 1;
+    function addAttribute() {
+        const attributes = document.getElementById('attributes');
+        const newAttr = document.createElement('div');
+        newAttr.className = 'form-row mb-3';
+        newAttr.innerHTML = `
+        <div class="col">
+            <input type="text" class="form-control" name="attributes[${attrIndex}][name]" placeholder="Название">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" name="attributes[${attrIndex}][value]" placeholder="Значение">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" name="attributes[${attrIndex}][code]" placeholder="Код">
+        </div>
+    `;
+        attributes.appendChild(newAttr);
+        attrIndex++;
+    }
+</script>
+
 </body>
 </html>
-
