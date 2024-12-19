@@ -51,3 +51,6 @@ Route::prefix('admin')->group(function () {
     });
 });
 
+Route::get('import', [ProductController::class, 'showImportForm'])->name('import.form');
+Route::post('import', [ProductController::class, 'import'])->name('import');
+

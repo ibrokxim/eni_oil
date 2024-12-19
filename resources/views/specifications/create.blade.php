@@ -147,15 +147,12 @@
                 </li>
             </ul>
         </aside>
-        <!-- / Menu -->
         <!-- Layout container -->
         <div class="layout-page">
-            <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <h4 class="fw-bold py-3 mb-4">Спецификации </h4>
-                    <!-- Custom file input -->
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
