@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attributes;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\PRS;
 use App\Models\Specification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -175,5 +176,11 @@ class ProductController extends Controller
         return response()->json([
             'message' => 'Product deleted successfully',
         ], 200);
+    }
+
+    public function showPRS()
+    {
+        $prs = PRS::all();
+        return view('products.prs', compact('prs'));
     }
 }

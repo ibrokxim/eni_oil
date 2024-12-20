@@ -16,6 +16,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/update/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::get('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.delete');
+        Route::get('/prs', [ProductController::class, 'showPRS'])->name('products.prs');
     });
     Route::prefix('categories')->group(function () {
        Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
