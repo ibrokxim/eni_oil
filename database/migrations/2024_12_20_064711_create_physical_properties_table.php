@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('specifications', function (Blueprint $table) {
+        Schema::create('physical_properties', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->string('property_name'); // Название свойства
+            $table->string('property_value')->nullable(); // Значение свойства
+            $table->string('unit')->nullable();
             $table->string('code')->nullable();
-            $table->string('value');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('specifications');
+        Schema::dropIfExists('physical_properties');
     }
 };

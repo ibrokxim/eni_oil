@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('cascade');
+            $table->string('macro_category')->nullable();
+            $table->string('sub_category1')->nullable();
+            $table->string('sub_category2')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('header')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }

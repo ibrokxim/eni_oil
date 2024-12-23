@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attributes;
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\PRS;
-use App\Models\Specification;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Specification;
 
 class ProductController extends Controller
 {

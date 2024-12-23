@@ -2,30 +2,46 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'products';
-    protected $fillable = ['name', 'sku', 'application','for_clients','warnings','eco_friendly','slug'];
+    protected $fillable = ['material_code', 'product_name', 'category_id'];
 
-    public function attributes()
+    public function category():BelongsTo
     {
-        return $this->belongsToMany(Attributes::class, 'product_attributes');
+        return $this->belongsTo(Category::class);
     }
 
-    public function specifications()
+    public function details():HasOne
     {
-        return $this->belongsToMany(Specification::class, 'product_specifications');
+        return $this->hasOne(ProductDetail::class);
     }
 
-    public function categories()
+    public function specifications():HasMany
     {
-        return $this->belongsToMany(Category::class, 'product_category');
+        return $this->hasMany(Specification::class);
     }
 
+    public function physicalProperties():HasMany
+    {
+        return $this->hasMany(PhysicalProperty::class);
+    }
+
+    public function additionalParameters():HasMany
+    {
+        return $this->hasMany(AdditionalParameter::class);
+    }
+    public function images():MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 
 }

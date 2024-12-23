@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Specification extends Model
+class PhysicalProperty extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'spec_name', 'spec_value'];
+    protected $fillable = ['product_id', 'property_name', 'property_value', 'unit'];
 
-    public function product(): BelongsTo
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }

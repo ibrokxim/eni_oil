@@ -15,13 +15,11 @@
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Eni Standart Oil Admin Panel</title>
+    <title>Input groups - Forms | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
-
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico')}}" />
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,18 +27,11 @@
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet"
     />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href=".{{ asset('assets/vendor/fonts/boxicons.css')}}" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{asset('/assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css')}}" />
-
-    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
-
     <script src="{{ asset('assets/vendor/js/helpers.js')}}"></script>
     <script src="{{ asset('assets/js/config.js')}}"></script>
 </head>
@@ -108,16 +99,14 @@
                   </g>
                 </svg>
               </span>
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2">ENI Standart Oil</span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2">Eni Standart Oil</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
                     <i class="bx bx-chevron-left bx-sm align-middle"></i>
                 </a>
             </div>
-
             <div class="menu-inner-shadow"></div>
-
             <ul class="menu-inner py-1">
                 <li class="menu-item ">
                     <a href="{{ route('products.index') }}" class="menu-link">
@@ -125,13 +114,13 @@
                         <div data-i18n="Tables">Товары</div>
                     </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{ route('categories.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Категории</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item ">
                     <a href="{{ route('attributes.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Аттрибуты</div>
@@ -143,7 +132,7 @@
                         <div data-i18n="Tables">Спецификации</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="{{ route('seo.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">SEO</div>
@@ -158,69 +147,80 @@
             </ul>
         </aside>
         <div class="layout-page">
-            <nav
-                class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                id="layout-navbar"
-            >
-                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="bx bx-menu bx-sm"></i>
-                    </a>
-                </div>
-
-                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                    <!-- Search -->
-                    <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input
-                                type="text"
-                                class="form-control border-0 shadow-none"
-                                placeholder="Поиск"
-                                aria-label=""
-                            />
-                        </div>
-                    </div>
-                    <!-- /Search -->
-                </div>
-            </nav>
             <!-- Content wrapper -->
             <div class="content-wrapper">
+                <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <a type="button" class="btn btn-primary" href="{{ route('categories.create') }}">Добавить категорию</a>
-                    <br>
-                    <br>
-                    <div class="card">
-                        <h5 class="card-header">Категории </h5>
-                        <div class="table-responsive text-nowrap">
-                            <table class="table">
-                                <thead>
-                                <tr class="text-nowrap">
-                                    <th>ID</th>
-                                    <th>Название</th>
-                                    <th>Подкатегории</th>
-                                    <th>Изменить</th>
-                                    <th>Удалить</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($categories as $category)
-                                    <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td><a href="{{route('categories.edit', $category->id)}}" type="button" class="btn btn-primary">Изменить</a></td>
-                                        <form action="{{ route('categories.delete', $category->id) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                        <td><button type="submit" class="btn btn-danger">Удалить</button></td>
-                                        </form>
-                                    </tr>
-                                @endforeach
+                    <h4 class="fw-bold py-3 mb-4">Редактировать страницу <?php $aboutPage->title ?></h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <h5 class="card-header">Редактировать страницу <?php $aboutPage->title ?></h5>
+                                <form action="{{ route('pages.about.update', $aboutPage->id) }}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="card-body demo-vertical-spacing demo-only-element">
+                                        <label for="slug" class="form-label">Заголовок</label>
+                                        <input type="text" class="form-control" name="title" id="slug"
+                                               value="{{ $aboutPage->title }}"
+                                               placeholder="Enter slug"
+                                               aria-describedby="slugHelp"
+                                               required
+                                        />
 
-                                </tbody>
-                            </table>
-                            {{ $categories->links() }}
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title" id="title"
+                                               value="{{ $seo->title }}"
+                                               placeholder="Enter title"
+                                               aria-describedby="titleHelp"
+                                        />
+
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" name="description" id="description"
+                                                  placeholder="Enter description"
+                                                  aria-describedby="descriptionHelp">{{ $seo->description }}</textarea>
+
+                                        <label for="keywords" class="form-label">Keywords</label>
+                                        <input type="text" class="form-control" name="keywords" id="keywords"
+                                               value="{{ $seo->keywords }}"
+                                               placeholder="Enter keywords"
+                                               aria-describedby="keywordsHelp"
+                                        />
+
+                                        <label for="position" class="form-label">Position</label>
+                                        <select class="form-select" name="position" id="position" required>
+                                            <option value="header" {{ $seo->position == 'header' ? 'selected' : '' }}>Header</option>
+                                            <option value="footer" {{ $seo->position == 'footer' ? 'selected' : '' }}>Footer</option>
+                                        </select>
+
+                                        <label for="type" class="form-label">Type</label>
+                                        <select class="form-select" name="type" id="type" required>
+                                            <option value="global" {{ $seo->type == 'global' ? 'selected' : '' }}>Global</option>
+                                            <option value="product" {{ $seo->type == 'product' ? 'selected' : '' }}>Product</option>
+                                            <option value="category" {{ $seo->type == 'category' ? 'selected' : '' }}>Category</option>
+                                        </select>
+
+                                        <label for="type_id" class="form-label">Type ID (optional)</label>
+                                        <input type="number" class="form-control" name="type_id" id="type_id"
+                                               value="{{ $seo->type_id }}"
+                                               placeholder="Enter type ID"
+                                               aria-describedby="typeIdHelp"
+                                        />
+
+                                        <button type="submit" class="btn btn-success mt-3">Update</button>
+
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger mt-3">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -231,20 +231,17 @@
         </div>
         <!-- / Layout page -->
     </div>
-
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-<script src="{{ asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
-<script src="{{ asset('assets/vendor/libs/popper/popper.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
 <script src="{{ asset('assets/vendor/js/bootstrap.js')}}"></script>
 <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-
 <script src="{{ asset('assets/vendor/js/menu.js')}}"></script>
 
 <script src="{{ asset('assets/js/main.js')}}"></script>
-
-<!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
+

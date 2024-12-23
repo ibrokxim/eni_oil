@@ -20,7 +20,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico')}}" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,18 +31,24 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href=".{{ asset('assets/vendor/fonts/boxicons.css')}}" />
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{asset('/assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css')}}" />
+    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <script src="{{ asset('assets/vendor/js/helpers.js')}}"></script>
-    <script src="{{ asset('assets/js/config.js')}}"></script>
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../assets/js/config.js"></script>
 </head>
 
 <body>
@@ -125,13 +131,13 @@
                         <div data-i18n="Tables">Товары</div>
                     </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item ">
                     <a href="{{ route('categories.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Категории</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item ">
                     <a href="{{ route('attributes.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Аттрибуты</div>
@@ -143,13 +149,13 @@
                         <div data-i18n="Tables">Спецификации</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item ">
                     <a href="{{ route('seo.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">SEO</div>
                     </a>
                 </li>
-                <li class="menu-item ">
+                <li class="menu-item active ">
                     <a href="{{ route('pages.index') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Редактор страниц</div>
@@ -187,40 +193,30 @@
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <a type="button" class="btn btn-primary" href="{{ route('categories.create') }}">Добавить категорию</a>
-                    <br>
-                    <br>
                     <div class="card">
-                        <h5 class="card-header">Категории </h5>
+                        <h5 class="card-header">Страницы</h5>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
                                 <tr class="text-nowrap">
-                                    <th>ID</th>
                                     <th>Название</th>
-                                    <th>Подкатегории</th>
+                                    <th>Значение</th>
                                     <th>Изменить</th>
-                                    <th>Удалить</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($categories as $category)
                                     <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td><a href="{{route('categories.edit', $category->id)}}" type="button" class="btn btn-primary">Изменить</a></td>
-                                        <form action="{{ route('categories.delete', $category->id) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                        <td><button type="submit" class="btn btn-danger">Удалить</button></td>
-                                        </form>
+                                        <td>Страница о нас</td>
+                                        <td>{{ $aboutPage->first()->title }}</td>
+                                        <td><a href="{{ route('pages.about.edit', $aboutPage->first()->id) }}" type="button" class="btn btn-primary">Изменить</a></td>
                                     </tr>
-                                @endforeach
-
+                                    <tr>
+                                        <td>Главная страница</td>
+                                        <td>{{ $aboutPage->first()->title }}</td>
+                                        <td><a href="#" type="button" class="btn btn-primary">Изменить</a></td>
+                                    </tr>
                                 </tbody>
                             </table>
-                            {{ $categories->links() }}
                         </div>
                     </div>
                 </div>
@@ -235,16 +231,26 @@
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-<script src="{{ asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
-<script src="{{ asset('assets/vendor/libs/popper/popper.js')}}"></script>
-<script src="{{ asset('assets/vendor/js/bootstrap.js')}}"></script>
-<script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+<!-- / Layout wrapper -->
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+<script src="../assets/vendor/libs/popper/popper.js"></script>
+<script src="../assets/vendor/js/bootstrap.js"></script>
+<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-<script src="{{ asset('assets/vendor/js/menu.js')}}"></script>
+<script src="../assets/vendor/js/menu.js"></script>
+<!-- endbuild -->
 
-<script src="{{ asset('assets/js/main.js')}}"></script>
+<!-- Vendors JS -->
+
+<!-- Main JS -->
+<script src="../assets/js/main.js"></script>
+
+<!-- Page JS -->
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
+

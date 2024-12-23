@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Specification extends Model
+class ProductDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'spec_name', 'spec_value'];
+    protected $fillable = ['product_id', 'application', 'customer_benefits', 'warnings', 'eco_friendly'];
 
-    public function product(): BelongsTo
+    public function product():BelongsTo
     {
         return $this->belongsTo(Product::class);
     }

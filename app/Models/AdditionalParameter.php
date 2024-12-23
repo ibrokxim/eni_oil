@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Specification extends Model
+class AdditionalParameter extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['product_id', 'spec_name', 'spec_value'];
+    protected $fillable = ['product_id', 'parameter_name', 'parameter_value', 'unit'];
 
     public function product(): BelongsTo
     {

@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Pages\AboutPageController;
 use App\Http\Controllers\SeoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AttributesController;
+use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\SpecificationController;
 
 
@@ -19,12 +21,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/prs', [ProductController::class, 'showPRS'])->name('products.prs');
     });
     Route::prefix('categories')->group(function () {
-       Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
-       Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
-       Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
-       Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
-       Route::put('/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
-       Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.delete');
+        Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
+        Route::put('/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->name('categories.delete');
     });
     Route::prefix('attributes')->group(function () {
         Route::get('/', [AttributesController::class, 'index'])->name('attributes.index');
@@ -50,8 +52,12 @@ Route::prefix('admin')->group(function () {
         Route::put('/update/{id}', [SeoController::class, 'update'])->name('seo.update');
         Route::delete('/delete/{id}', [SeoController::class, 'destroy'])->name('seo.delete');
     });
+    Route::prefix('pages')->group(function () {
+        Route::get('/', [PageController::class, 'index'])->name('pages.index');
+        Route::get('/about/edit/{id}', [AboutPageController::class, 'edit'])->name('pages.about.edit');
+        Route::post('/about/update/{id}', [AboutPageController::class, 'update'])->name('pages.about.update');
+    });
 });
-
 Route::get('import', [ProductController::class, 'showImportForm'])->name('import.form');
 Route::post('import', [ProductController::class, 'import'])->name('import');
 
