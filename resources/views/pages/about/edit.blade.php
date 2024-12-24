@@ -151,63 +151,53 @@
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4">Редактировать страницу <?php $aboutPage->title ?></h4>
+                    <h4 class="fw-bold py-3 mb-4">Редактировать страницу <?php echo $aboutPage->title ?></h4>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <h5 class="card-header">Редактировать страницу <?php $aboutPage->title ?></h5>
-                                <form action="{{ route('pages.about.update', $aboutPage->id) }}" method="post">
+                                <h5 class="card-header">Редактировать страницу <?php echo $aboutPage->title ?></h5>
+                                <form action="{{ route('pages.about.update', $aboutPage->id) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="card-body demo-vertical-spacing demo-only-element">
-                                        <label for="slug" class="form-label">Заголовок</label>
-                                        <input type="text" class="form-control" name="title" id="slug"
+                                        <label for="title" class="form-label">Заголовок</label>
+                                        <input type="text" class="form-control" name="title" id="title"
                                                value="{{ $aboutPage->title }}"
-                                               placeholder="Enter slug"
-                                               aria-describedby="slugHelp"
+                                               placeholder="Enter title"
+                                               aria-describedby="titleHelp"
                                                required
                                         />
 
-                                        <label for="title" class="form-label">Title</label>
-                                        <input type="text" class="form-control" name="title" id="title"
-                                               value="{{ $seo->title }}"
-                                               placeholder="Enter title"
-                                               aria-describedby="titleHelp"
-                                        />
+                                        <label for="main_image" class="form-label">Main image</label>
+                                        <div class="mb-3">
+                                            <img src="{{ $aboutPage->main_image }}" alt="Main Image" style="max-width: 100%; height: auto;">
+                                        </div>
+                                        <input type="file" class="form-control" name="main_image" id="main_image" />
 
-                                        <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" name="description" id="description"
-                                                  placeholder="Enter description"
-                                                  aria-describedby="descriptionHelp">{{ $seo->description }}</textarea>
+                                        <label for="first_description" class="form-label">Первое описание</label>
+                                        <textarea class="form-control" name="first_description" id="first_description" rows="5"
+                                                  placeholder="Enter first description"
+                                                  aria-describedby="firstDescriptionHelp">{{ $aboutPage->first_description }}</textarea>
 
-                                        <label for="keywords" class="form-label">Keywords</label>
-                                        <input type="text" class="form-control" name="keywords" id="keywords"
-                                               value="{{ $seo->keywords }}"
-                                               placeholder="Enter keywords"
-                                               aria-describedby="keywordsHelp"
-                                        />
+                                        <label for="second_description" class="form-label">Второе описание</label>
+                                        <textarea class="form-control" name="second_description" id="second_description" rows="5"
+                                                  placeholder="Enter second description"
+                                                  aria-describedby="secondDescriptionHelp">{{ $aboutPage->second_description }}</textarea>
 
-                                        <label for="position" class="form-label">Position</label>
-                                        <select class="form-select" name="position" id="position" required>
-                                            <option value="header" {{ $seo->position == 'header' ? 'selected' : '' }}>Header</option>
-                                            <option value="footer" {{ $seo->position == 'footer' ? 'selected' : '' }}>Footer</option>
-                                        </select>
+                                        <label for="first_image" class="form-label">Первая фотография</label>
+                                        <div class="mb-3">
+                                            <img src="{{ $aboutPage->first_image }}" alt="First Image" style="max-width: 100%; height: auto;">
+                                        </div>
+                                        <input type="file" class="form-control" name="first_image" id="first_image" />
 
-                                        <label for="type" class="form-label">Type</label>
-                                        <select class="form-select" name="type" id="type" required>
-                                            <option value="global" {{ $seo->type == 'global' ? 'selected' : '' }}>Global</option>
-                                            <option value="product" {{ $seo->type == 'product' ? 'selected' : '' }}>Product</option>
-                                            <option value="category" {{ $seo->type == 'category' ? 'selected' : '' }}>Category</option>
-                                        </select>
+                                        <label for="second_image" class="form-label">Вторая фотография</label>
+                                        <div class="mb-3">
+                                            <img src="{{ $aboutPage->second_image }}" alt="Second Image" style="max-width: 100%; height: auto;">
+                                        </div>
+                                        <input type="file" class="form-control" name="second_image" id="second_image" />
 
-                                        <label for="type_id" class="form-label">Type ID (optional)</label>
-                                        <input type="number" class="form-control" name="type_id" id="type_id"
-                                               value="{{ $seo->type_id }}"
-                                               placeholder="Enter type ID"
-                                               aria-describedby="typeIdHelp"
-                                        />
 
-                                        <button type="submit" class="btn btn-success mt-3">Update</button>
+                                        <button type="submit" class="btn btn-success mt-3">Обновить</button>
 
                                         @if ($errors->any())
                                             <div class="alert alert-danger mt-3">

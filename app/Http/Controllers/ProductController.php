@@ -21,8 +21,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $specifications = Specification::all();
-        $attributes = Attributes::all();
-        return view('products.create', compact('categories', 'specifications', 'attributes'));
+        return view('products.create', compact('categories', 'specifications'));
     }
     public function store(Request $request)
     {

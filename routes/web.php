@@ -55,7 +55,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('pages')->group(function () {
         Route::get('/', [PageController::class, 'index'])->name('pages.index');
         Route::get('/about/edit/{id}', [AboutPageController::class, 'edit'])->name('pages.about.edit');
-        Route::post('/about/update/{id}', [AboutPageController::class, 'update'])->name('pages.about.update');
+        Route::put('/about/update/{id}', [AboutPageController::class, 'update'])->name('pages.about.update');
     });
 });
 Route::get('import', [ProductController::class, 'showImportForm'])->name('import.form');
