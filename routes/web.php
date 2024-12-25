@@ -54,8 +54,18 @@ Route::prefix('admin')->group(function () {
     });
     Route::prefix('pages')->group(function () {
         Route::get('/', [PageController::class, 'index'])->name('pages.index');
-        Route::get('/about/edit/{id}', [AboutPageController::class, 'edit'])->name('pages.about.edit');
-        Route::put('/about/update/{id}', [AboutPageController::class, 'update'])->name('pages.about.update');
+        Route::prefix('footer')->group(function () {
+            Route::get('/edit/{id}', [PageController::class, 'editFooter'])->name('pages.footer.edit');
+            Route::put('/update/{id}', [PageController::class, 'updateFooter'])->name('pages.footer.update');
+        });
+        Route::prefix('about')->group(function () {
+            Route::get('/edit/{id}', [AboutPageController::class, 'edit'])->name('pages.about.edit');
+            Route::put('/update/{id}', [AboutPageController::class, 'update'])->name('pages.about.update');
+        });
+        Route::prefix('main')->group(function () {
+            Route::get('/edit/{id}', [PageController::class, 'editMain'])->name('pages.main.edit');
+            Route::put('/update/{id}', [PageController::class, 'updateMain'])->name('pages.main.update');
+        });
     });
 });
 Route::get('import', [ProductController::class, 'showImportForm'])->name('import.form');

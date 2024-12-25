@@ -58,4 +58,15 @@ class AboutPageController extends Controller
         $aboutPage->save();
         return redirect()->route('pages.index')->with('success', 'Page updated successfully');
     }
+
+    public function apiResponse()
+    {
+        $aboutPage = About::first(); // Assuming there's only one About page
+
+        if (!$aboutPage) {
+            return response()->json(['message' => 'Page not found'], 404);
+        }
+
+        return response()->json($aboutPage);
+    }
 }
