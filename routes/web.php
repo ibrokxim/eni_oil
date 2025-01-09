@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Pages\AboutPageController;
+use App\Http\Controllers\Pages\FooterController;
+use App\Http\Controllers\Pages\MainPageController;
 use App\Http\Controllers\SeoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -55,19 +57,20 @@ Route::prefix('admin')->group(function () {
     Route::prefix('pages')->group(function () {
         Route::get('/', [PageController::class, 'index'])->name('pages.index');
         Route::prefix('footer')->group(function () {
-            Route::get('/edit/{id}', [PageController::class, 'editFooter'])->name('pages.footer.edit');
-            Route::put('/update/{id}', [PageController::class, 'updateFooter'])->name('pages.footer.update');
+            Route::get('/edit/{id}', [FooterController::class, 'edit'])->name('pages.footer.edit');
+            Route::put('/update/{id}', [FooterController::class, 'update'])->name('pages.footer.update');
         });
         Route::prefix('about')->group(function () {
             Route::get('/edit/{id}', [AboutPageController::class, 'edit'])->name('pages.about.edit');
             Route::put('/update/{id}', [AboutPageController::class, 'update'])->name('pages.about.update');
         });
         Route::prefix('main')->group(function () {
-            Route::get('/edit/{id}', [PageController::class, 'editMain'])->name('pages.main.edit');
-            Route::put('/update/{id}', [PageController::class, 'updateMain'])->name('pages.main.update');
+            Route::get('/edit/{id}', [MainPageController::class, 'edit'])->name('pages.main.edit');
+            Route::put('/update/{id}', [MainPageController::class, 'update'])->name('pages.main.update');
         });
     });
 });
-Route::get('import', [ProductController::class, 'showImportForm'])->name('import.form');
-Route::post('import', [ProductController::class, 'import'])->name('import');
+
+Route::get('import', [ProductController::class, 'importForm'])->name('products.importForm');
+Route::post('products/import', [ProductController::class, 'import'])->name('products.import');
 

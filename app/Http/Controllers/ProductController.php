@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ProductsImport;
 use App\Models\PRS;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Specification;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -179,5 +181,20 @@ class ProductController extends Controller
     {
         $prs = PRS::all();
         return view('products.prs', compact('prs'));
+    }
+
+    public function importForm()
+    {
+        return view('test');
+    }
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:csv,txt', // Разрешаем только CSV
+        ]);
+
+        Excel::import(new ProductsImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Products imported successfully.');
     }
 }

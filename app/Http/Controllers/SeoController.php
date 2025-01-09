@@ -7,13 +7,14 @@ use App\Models\SEO;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SeoController extends Controller
 {
     public function index()
     {
-        $seos = SEO::all();
-        return view('seo.index', compact('seos'));
+        $seo = SEO::all();
+        return view('seo.index', compact('seo'));
     }
 
     public function create()
@@ -25,53 +26,106 @@ class SeoController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'slug' => 'required|string|max:255|unique:seos',
-            'title' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
+        $request->validate([
+            'page' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'h1' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
             'keywords' => 'nullable|string',
-            'position' => 'required|string|in:header,footer',
-            'type' => 'required|string|in:product,category,global',
-            'type_id' => 'nullable|integer',
+            'scripts' => 'nullable|string',
+            'og:title' => 'nullable|string|max:255',
+            'og:description' => 'nullable|string',
+            'og:image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'canonical' => 'nullable|string|max:255',
         ]);
 
-        SEO::create($validatedData);
+        $seo = new Seo();
+        $seo->page = $request->page;
+        $seo->slug = $request->slug;
+        $seo->h1 = $request->h1;
+        $seo->meta_title = $request->meta_title;
+        $seo->meta_description = $request->meta_description;
+        $seo->keywords = $request->keywords;
+        $seo->scripts = $request->scripts;
+        $seo->{'og:title'} = $request->{'og:title'};
+        $seo->{'og:description'} = $request->{'og:description'};
 
-        return redirect()->route('seo.index')->with('success', 'SEO data created successfully.');
+        if ($request->hasFile('og:image')) {
+            $ogImagePath = $request->file('og:image')->store('seo_images', 'public');
+            $seo->{'og:image'} = Storage::url($ogImagePath);
+        }
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('seo_images', 'public');
+            $seo->image = Storage::url($imagePath);
+        }
+
+        $seo->canonical = $request->canonical;
+
+        $seo->save();
+
+        return redirect()->route('seo.index')->with('success', 'SEO settings created successfully.');
     }
 
     public function edit($id)
     {
-        $seo = SEO::findOrFail($id);
-        $products = Product::all();
-        $categories = Category::all();
-        return view('seo.edit', compact('seo', 'products', 'categories'));
+        $seo = Seo::findOrFail($id);
+        return view('seo.edit', compact('seo'));
     }
 
     public function update(Request $request, $id)
     {
-        $seo = SEO::findOrFail($id);
+        $seo = Seo::findOrFail($id);
 
-        $validatedData = $request->validate([
-            'slug' => 'required|string|max:255|unique:seos,slug,' . $seo->id,
-            'title' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
+        $request->validate([
+            'page' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'h1' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
             'keywords' => 'nullable|string',
-            'position' => 'required|string|in:header,footer',
-            'type' => 'required|string|in:product,category,global',
-            'type_id' => 'nullable|integer',
+            'scripts' => 'nullable|string',
+            'og:title' => 'nullable|string|max:255',
+            'og:description' => 'nullable|string',
+            'og:image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'canonical' => 'nullable|string|max:255',
         ]);
 
-        $seo->update($validatedData);
+        $seo->page = $request->page;
+        $seo->slug = $request->slug;
+        $seo->h1 = $request->h1;
+        $seo->meta_title = $request->meta_title;
+        $seo->meta_description = $request->meta_description;
+        $seo->keywords = $request->keywords;
+        $seo->scripts = $request->scripts;
+        $seo->{'og:title'} = $request->{'og:title'};
+        $seo->{'og:description'} = $request->{'og:description'};
 
-        return redirect()->route('seo.index')->with('success', 'SEO data updated successfully.');
+        if ($request->hasFile('og:image')) {
+            $ogImagePath = $request->file('og:image')->store('seo_images', 'public');
+            $seo->{'og:image'} = Storage::url($ogImagePath);
+        }
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('seo_images', 'public');
+            $seo->image = Storage::url($imagePath);
+        }
+
+        $seo->canonical = $request->canonical;
+
+        $seo->save();
+
+        return redirect()->route('seo.index')->with('success', 'SEO settings updated successfully.');
     }
 
     public function destroy($id)
     {
-        $seo = SEO::findOrFail($id);
+        $seo = Seo::findOrFail($id);
         $seo->delete();
 
-        return redirect()->route('seo.index')->with('success', 'SEO data deleted successfully.');
+        return redirect()->route('seo.index')->with('success', 'SEO settings deleted successfully.');
     }
 }

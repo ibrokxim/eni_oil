@@ -13,35 +13,24 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['material_code', 'product_name', 'category_id'];
+    protected $fillable = [
+        'product_code', 'product_name', 'macro_category', 'subcategory_1', 'subcategory_2',
+        'application', 'client_benefits', 'warnings', 'eco_friendly', 'additional_data',
+        'photo', 'technical_specification', 'commercial_offer'
+    ];
 
-    public function category():BelongsTo
+    protected $casts = [
+        'additional_data' => 'array',
+    ];
+
+    public function getAdditionalDataAttribute($value)
     {
-        return $this->belongsTo(Category::class);
+        return json_decode($value, true);
     }
 
-    public function details():HasOne
+    public function setAdditionalDataAttribute($value)
     {
-        return $this->hasOne(ProductDetail::class);
-    }
-
-    public function specifications():HasMany
-    {
-        return $this->hasMany(Specification::class);
-    }
-
-    public function physicalProperties():HasMany
-    {
-        return $this->hasMany(PhysicalProperty::class);
-    }
-
-    public function additionalParameters():HasMany
-    {
-        return $this->hasMany(AdditionalParameter::class);
-    }
-    public function images():MorphMany
-    {
-        return $this->morphMany(Image::class, 'imageable');
+        $this->attributes['additional_data'] = json_encode($value);
     }
 
 }

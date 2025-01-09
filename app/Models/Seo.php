@@ -11,11 +11,8 @@ class Seo extends Model
 
 
     protected $fillable = [
-        'slug', 'title', 'description', 'keywords', 'position', 'type', 'type_id'
+        'page', 'slug', 'h1', 'title', 'description', 'keywords',
+        'og_title', 'og_description', 'og_image', 'image', 'canonical'
     ];
 
-    public function typeable()
-    {
-        return $this->morphTo();
-    }
 }

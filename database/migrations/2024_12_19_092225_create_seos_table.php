@@ -13,16 +13,19 @@ return new class extends Migration
     {
         Schema::create('seos', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique();
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
-            $table->string('keywords')->nullable();
-            $table->string('position'); // header or footer
-            $table->string('type'); // product, category, or global
-            $table->unsignedBigInteger('type_id')->nullable(); // ID of the product or category
+            $table->string('page');
+            $table->string('slug');
+            $table->string('h1')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('keywords')->nullable();
+            $table->text('scripts')->nullable();
+            $table->string('og:title')->nullable();
+            $table->text('og:description')->nullable();
+            $table->string('og:image')->nullable();
+            $table->string('image')->nullable();
+            $table->string('canonical')->nullable();
             $table->timestamps();
-
-            $table->index(['type', 'type_id']);
         });
     }
 

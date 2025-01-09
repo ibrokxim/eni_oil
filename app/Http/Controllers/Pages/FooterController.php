@@ -27,7 +27,7 @@ class FooterController extends Controller
             'email' => 'required|email',
             'address' => 'required',
             'socials' => 'nullable',
-            'name' => 'require',
+            'name' => 'required',
         ]);
 
         $footer->number = $request->number;

@@ -14,7 +14,6 @@ class AboutPageController extends Controller
         return view('pages.index');
     }
 
-
     public function edit($id)
     {
         $aboutPage = About::findOrFail($id);
@@ -61,12 +60,11 @@ class AboutPageController extends Controller
 
     public function apiResponse()
     {
-        $aboutPage = About::first(); // Assuming there's only one About page
+        $aboutPage = About::first();
 
         if (!$aboutPage) {
             return response()->json(['message' => 'Page not found'], 404);
         }
-
         return response()->json($aboutPage);
     }
 }

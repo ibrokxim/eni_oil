@@ -151,51 +151,46 @@
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4">Редактировать страницу <?php echo $mainPage->title ?></h4>
+                    <h4 class="fw-bold py-3 mb-4">Редактировать страницу <?php echo $footer->title ?></h4>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <h5 class="card-header">Редактировать страницу <?php echo $aboutPage->title ?></h5>
-                                <form action="{{ route('pages.about.update', $aboutPage->id) }}" method="post" enctype="multipart/form-data">
+                                <h5 class="card-header">Редактировать страницу <?php echo $footer->title ?></h5>
+                                <form action="{{ route('pages.footer.update', $footer->id) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="card-body demo-vertical-spacing demo-only-element">
-                                        <label for="title" class="form-label">Заголовок</label>
-                                        <input type="text" class="form-control" name="title" id="title"
-                                               value="{{ $aboutPage->title }}"
+                                        <label for="title" class="form-label"></label>
+                                        <input type="text" class="form-control" name="name" id="title"
+                                               value="{{ $footer->name }}"
+                                               placeholder="Enter title"
+                                               aria-describedby="titleHelp"
+                                               required
+                                        />
+                                        <label for="title" class="form-label"></label>
+                                        <input type="email" class="form-control" name="email" id="title"
+                                               value="{{ $footer->email }}"
+                                               placeholder="Enter title"
+                                               aria-describedby="titleHelp"
+                                               required
+                                        />
+                                        <label for="title" class="form-label"></label>
+                                        <input type="text" class="form-control" name="socials" id="title"
+                                               value="{{ $footer->socials }}"
                                                placeholder="Enter title"
                                                aria-describedby="titleHelp"
                                                required
                                         />
 
-                                        <label for="main_image" class="form-label">Main image</label>
-                                        <div class="mb-3">
-                                            <img src="{{ $aboutPage->main_image }}" alt="Main Image" style="max-width: 100%; height: auto;">
-                                        </div>
-                                        <input type="file" class="form-control" name="main_image" id="main_image" />
-
-                                        <label for="first_description" class="form-label">Первое описание</label>
-                                        <textarea class="form-control" name="first_description" id="first_description" rows="5"
+                                        <label for="first_description" class="form-label">Номер телефона</label>
+                                        <input class="form-control" name="number" id="first_description"
                                                   placeholder="Enter first description"
-                                                  aria-describedby="firstDescriptionHelp">{{ $aboutPage->first_description }}</textarea>
+                                                  aria-describedby="firstDescriptionHelp" value="{{$footer->number }}"/>
 
-                                        <label for="second_description" class="form-label">Второе описание</label>
-                                        <textarea class="form-control" name="second_description" id="second_description" rows="5"
+                                        <label for="second_description" class="form-label">Адрес</label>
+                                        <input class="form-control" name="address" id="second_description"
                                                   placeholder="Enter second description"
-                                                  aria-describedby="secondDescriptionHelp">{{ $aboutPage->second_description }}</textarea>
-
-                                        <label for="first_image" class="form-label">Первая фотография</label>
-                                        <div class="mb-3">
-                                            <img src="{{ $aboutPage->first_image }}" alt="First Image" style="max-width: 100%; height: auto;">
-                                        </div>
-                                        <input type="file" class="form-control" name="first_image" id="first_image" />
-
-                                        <label for="second_image" class="form-label">Вторая фотография</label>
-                                        <div class="mb-3">
-                                            <img src="{{ $aboutPage->second_image }}" alt="Second Image" style="max-width: 100%; height: auto;">
-                                        </div>
-                                        <input type="file" class="form-control" name="second_image" id="second_image" />
-
+                                                  aria-describedby="secondDescriptionHelp" value="{{ $footer->address }}">
 
                                         <button type="submit" class="btn btn-success mt-3">Обновить</button>
 

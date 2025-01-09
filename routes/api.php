@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Pages\FooterController;
-use App\Http\Controllers\Pages\MainPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\Pages\FooterController;
+use App\Http\Controllers\Pages\MainPageController;
 use App\Http\Controllers\Pages\AboutPageController;
 
 Route::post('/footerform', [RequestController::class, 'sendRequestToTelegram']);
