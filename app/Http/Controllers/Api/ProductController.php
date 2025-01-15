@@ -10,13 +10,27 @@ class ProductController extends Controller
 {
     public function getProducts()
     {
-        $products = Product::query()->paginate(24);
+        // Выбираем только нужные поля
+        $products = Product::query()
+            ->select('id', 'photo', 'name', 'code', 'slug')
+            ->paginate(24);
+
+        $products->getCollection()->transform(function ($product) {
+            return [
+                'id' => $product->id,
+                'photo' => $product->photo,
+                'name' => $product->name,
+                'product_code' => $product->code,
+                'slug' => $product->slug,
+            ];
+        });
+
         return response()->json($products);
     }
 
-    public function getProductById($id)
+    public function getProductBySlug($slug)
     {
-        $product = Product::find($id);
+        $product = Product::where('slug', $slug)->firstOrFail();
         return response()->json($product);
     }
 }

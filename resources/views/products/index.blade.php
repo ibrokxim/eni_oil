@@ -218,7 +218,7 @@
                                     <td>{{ $product->code }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category }}</td>
-                                    <td><button type="button" class="btn btn-primary"> Изменить</button></td>
+                                    <td><a href="{{ route('products.edit', $product->id) }}" type="button" class="btn btn-primary"> Изменить</a></td>
                                     <td><button type="button" class="btn btn-danger"> Удалить</button></td>
                                 </tr>
                                 @endforeach

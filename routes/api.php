@@ -16,4 +16,4 @@ Route::get('/get-footer', [FooterController::class, 'apiResponse']);
 Route::get('/get-about', [AboutPageController::class, 'apiResponse']);
 
 Route::get('/products', [ProductController::class, 'getProducts']);
-Route::get('/product/{id}', [ProductController::class, 'getProductById']);
+Route::get('/products/{slug}', [ProductController::class, 'getProductBySlug']);

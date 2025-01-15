@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html
     lang="en"
     class="light-style layout-menu-fixed"
@@ -175,47 +174,6 @@
                                     <label for="defaultFormControlInput" class="form-label">Eco Friendly</label>
                                     <input type="text" class="form-control" name="eco_friendly" id="defaultFormControlInput" placeholder="Введите текст" aria-describedby="defaultFormControlHelp"/>
 
-                                    <label for="defaultFormControlInput" class="form-label">Выберите категорию</label>
-                                    <select class="form-control" name="category_id" id="category_id">
-                                        <option value="">Выберите категорию</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    <!-- Specifications -->
-                                    <label for="specifications" class="form-label">Спецификации</label>
-                                    <div id="specifications">
-                                        <div class="form-row mb-3">
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="specifications[0][name]" placeholder="Название">
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="specifications[0][value]" placeholder="Значение">
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="specifications[0][code]" placeholder="Код">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-secondary mb-3" onclick="addSpecification()">Добавить спецификацию</button>
-
-                                    <!-- Attributes -->
-                                    <label for="attributes" class="form-label">Атрибуты</label>
-                                    <div id="attributes">
-                                        <div class="form-row mb-3">
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="attributes[0][name]" placeholder="Название">
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="attributes[0][value]" placeholder="Значение">
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control" name="attributes[0][code]" placeholder="Код">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-secondary mb-3" onclick="addAttribute()">Добавить атрибут</button>
 
                                     <!-- Images -->
                                     <label for="images" class="form-label">Изображения</label>
@@ -237,9 +195,7 @@
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-<!-- / Layout wrapper -->
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
+
 <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
 <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
