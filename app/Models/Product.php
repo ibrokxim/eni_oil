@@ -14,23 +14,19 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_code', 'product_name', 'macro_category', 'subcategory_1', 'subcategory_2',
-        'application', 'client_benefits', 'warnings', 'eco_friendly', 'additional_data',
+        'code', 'name', 'category', 'subcategory_1', 'subcategory_2',
+        'application', 'client_benefits', 'warnings', 'eco_friendly',
         'photo', 'technical_specification', 'commercial_offer'
     ];
 
-    protected $casts = [
-        'additional_data' => 'array',
-    ];
-
-    public function getAdditionalDataAttribute($value)
+    public function features()
     {
-        return json_decode($value, true);
+        return $this->hasMany(ProductFeature::class);
     }
 
-    public function setAdditionalDataAttribute($value)
+    public function specifications()
     {
-        $this->attributes['additional_data'] = json_encode($value);
+        return $this->hasMany(ProductSpecification::class);
     }
 
 }

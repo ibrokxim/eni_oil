@@ -215,18 +215,17 @@
                                 <tbody>
                                 @foreach($products as $product)
                                 <tr>
-                                    <td>{{ $product->sku }}</td>
+                                    <td>{{ $product->code }}</td>
                                     <td>{{ $product->name }}</td>
-                                    <td>{{ $product->name }}</td>
-                                    <td>название товара</td>
-                                    <td><button type="button" class="btn btn-primary">изменить</button></td>
-                                    <td><button type="button" class="btn btn-danger">удалить</button></td>
+                                    <td>{{ $product->category }}</td>
+                                    <td><button type="button" class="btn btn-primary"> Изменить</button></td>
+                                    <td><button type="button" class="btn btn-danger"> Удалить</button></td>
                                 </tr>
                                 @endforeach
 
                                 </tbody>
                             </table>
-                            {{ $products->links() }}
+                            {{ $products->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                 </div>

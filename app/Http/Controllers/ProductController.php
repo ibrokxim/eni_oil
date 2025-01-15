@@ -190,7 +190,7 @@ class ProductController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:csv,txt', // Разрешаем только CSV
+            'file' => 'required|mimes:xlsx', // Разрешаем только CSV
         ]);
 
         Excel::import(new ProductsImport, $request->file('file'));
