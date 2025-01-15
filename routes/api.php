@@ -17,3 +17,4 @@ Route::get('/get-about', [AboutPageController::class, 'apiResponse']);
 
 Route::get('/products', [ProductController::class, 'getProducts']);
 Route::get('/products/{slug}', [ProductController::class, 'getProductBySlug']);
+Route::get('/products/category/{category}', [ProductController::class, 'getProductsByCategory'])->name('products.byCategory');
