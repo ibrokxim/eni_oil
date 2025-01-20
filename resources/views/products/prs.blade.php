@@ -201,8 +201,8 @@
                                 <tr class="text-nowrap">
                                     <th>Код</th>
                                     <th>Наименование</th>
-                                    <th>кг</th>
-                                    <th>литры</th>
+                                    <th>Кг</th>
+                                    <th>Литры</th>
                                     <th>Цена евро</th>
                                     <th>Цена тенге</th>
 

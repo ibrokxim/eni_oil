@@ -3,7 +3,7 @@
 // app/Http/Controllers/SEOController.php
 namespace App\Http\Controllers;
 
-use App\Models\SEO;
+use App\Models\Seo;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class SeoController extends Controller
 {
     public function index()
     {
-        $seo = SEO::all();
+        $seo = Seo::all();
         return view('seo.index', compact('seo'));
     }
 
